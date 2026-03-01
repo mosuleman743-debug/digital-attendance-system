@@ -26,6 +26,29 @@ public:
 
 vector<Student> students;
 
+class AttendanceSession {
+    public: 
+    string courseCode;
+    string date;
+    string startTime;
+    int duration;
+
+    AttendanceSession(string c, string d, string s, int dur) {
+        courseCode = c;
+        date = d;
+        startTime = s;
+        duration = dur;
+    }
+    void display() {
+        cout << "Course Code: " << courseCode
+             << ", Date: " << date
+             << ", Start Time: " << startTime
+             << ", Duration(hours): " << duration << " hours" << endl;
+    }
+};
+vector<AttendanceSession> sessions;
+
+
 /* =========================
    STUDENT FUNCTIONS
 ========================= */
@@ -66,6 +89,27 @@ void searchStudent() {
     }
     cout << "Student not found.\n";
 }
+void createSession() {
+    string courseCode, date, startTime;
+    int duration;
+
+    cin.ignore();
+    cout << "Enter Course Code: ";
+    getline(cin, courseCode);
+
+    cout << "Enter Date (YYYY-MM-DD): ";
+    getline(cin, date);
+
+    cout << "Enter Start Time (HH:MM): ";
+    getline(cin, startTime);
+
+    cout << "Enter Duration (hours): ";
+    cin >> duration;
+
+    sessions.push_back(AttendanceSession(courseCode, date, startTime, duration));
+
+    cout << "Attendance session created successfully!\n";
+}
 
 /* =========================
    MAIN
@@ -76,11 +120,13 @@ int main() {
     int choice;
 
     do {
-        cout << "\n===== WEEK 1 =====\n";
+        cout << "\n===== WEEK 2 =====\n";
         cout << "1. Register Student\n";
         cout << "2. View Students\n";
         cout << "3. Search Student\n";
-        cout << "4. Exit\n";
+        cout << "4. Create Attendance Session\n";
+        cout << "5. View Attendance Sessions\n";
+        cout << "6. Exit\n";
         cout << "Choice: ";
         cin >> choice;
 
@@ -88,11 +134,18 @@ int main() {
             case 1: registerStudent(); break;
             case 2: viewStudents(); break;
             case 3: searchStudent(); break;
-            case 4: cout << "Exiting...\n"; break;
+            case 4: createSession(); break;
+            case 5: 
+                if (sessions.empty()) {
+                    cout << "No attendance sessions created.\n";
+                } else {
+                    for (auto &s : sessions) s.display();
+                }
+                break;
             default: cout << "Invalid choice!\n";
         }
 
-    } while (choice != 4);
+    } while (choice != 6);
 
     return 0;
 }
