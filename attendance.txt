@@ -1,0 +1,2 @@
+IndexNumber,CourseCode,Status
+01240662D,EEE227,Absent
